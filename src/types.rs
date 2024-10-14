@@ -1,8 +1,8 @@
 #[derive(Debug, Clone)]
 pub struct BackpackContext {
-    capacity: i32,
-    weighs: Vec<i32>,
-    value: Vec<i32>,
+    pub capacity: i32,
+    pub weighs: Vec<i32>,
+    pub value: Vec<i32>,
 }
 impl BackpackContext {
     pub fn make(
@@ -27,5 +27,5 @@ impl BackpackContext {
 pub trait Solver {
     fn make(ctx: BackpackContext) -> Self;
     fn name() -> &'static str;
-    fn solve(&mut self) -> i32;
+    fn solve(&self) -> i32;
 }
