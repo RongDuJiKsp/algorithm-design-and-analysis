@@ -1,4 +1,3 @@
-use std::cmp::max;
 use crate::types::{BackpackContext, Solver};
 
 pub struct DynamicProgrammingSolver {
