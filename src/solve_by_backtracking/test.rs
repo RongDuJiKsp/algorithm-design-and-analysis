@@ -20,5 +20,5 @@ impl Solver for BackTrackingSolver {
         "BackTrackingSolver"
     }
 
-    fn solve(&self) -> i32 {}
+    fn solve(&mut self) -> i32 {}
 }

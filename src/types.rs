@@ -27,5 +27,5 @@ impl BackpackContext {
 pub trait Solver {
     fn make(ctx: BackpackContext) -> Self;
     fn name() -> &'static str;
-    fn solve(&self) -> i32;
+    fn solve(&mut self) -> i32;
 }
