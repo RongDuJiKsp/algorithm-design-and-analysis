@@ -19,7 +19,7 @@ impl BackTrackingSolver {
                 deep + 1,
                 vis | (1 << deep),
                 weights + self.ctx.weighs[deep],
-                values + self.ctx.weighs[deep],
+                values + self.ctx.value[deep],
             ),
         )
     }

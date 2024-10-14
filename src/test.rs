@@ -1,9 +1,10 @@
 use crate::solve_by_backtracking::test::BackTrackingSolver;
+use crate::solve_by_dynamic_programming::test::DynamicProgrammingSolver;
 use crate::types::{BackpackContext, Solver, SolverContext};
 
 pub fn run() {
-    SolverContext::<BackTrackingSolver>::make(
-        BackpackContext::make(4, vec![2, 2, 3, 4], vec![999, 2222, 1, 3])
+    SolverContext::<DynamicProgrammingSolver>::make(
+        BackpackContext::make(70, vec![71, 69, 1], vec![100, 1, 2])
     ).print();
 }
 
