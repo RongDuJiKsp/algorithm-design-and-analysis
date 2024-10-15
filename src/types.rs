@@ -5,11 +5,7 @@ pub struct BackpackContext {
     pub value: Vec<i32>,
 }
 impl BackpackContext {
-    pub fn make(
-        capacity: i32,
-        weighs: Vec<i32>,
-        value: Vec<i32>,
-    ) -> BackpackContext {
+    pub fn make(capacity: i32, weighs: Vec<i32>, value: Vec<i32>) -> BackpackContext {
         if weighs.len() == value.len() && weighs.iter().all(|x| *x >= 0) {
             BackpackContext {
                 capacity,

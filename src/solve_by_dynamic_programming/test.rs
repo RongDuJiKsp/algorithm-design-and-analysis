@@ -13,10 +13,10 @@ impl Solver for DynamicProgrammingSolver {
         "DynamicProgrammingSolver"
     }
 
-    fn solve(&self) -> i32 {
+    fn solve(&mut self) -> i32 {
         const INF: i32 = 0x3f3f3f3f;
         let n = self.ctx.weighs.len();
-        let mut dp = vec![-INF; self.ctx.capacity as usize+1];
+        let mut dp = vec![-INF; self.ctx.capacity as usize + 1];
         dp[0] = 0;
         for idx in 0..n {
             let (w, v) = (self.ctx.weighs[idx] as usize, self.ctx.value[idx]);
