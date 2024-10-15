@@ -37,7 +37,7 @@ impl Solver for BackTrackingSolver {
         "BackTrackingSolver"
     }
 
-    fn solve(&mut self) -> i32 {
+    fn solve(&self) -> i32 {
         self.dfs(0, 0, 0, 0)
     }
 }
