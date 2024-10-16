@@ -1,3 +1,5 @@
+use std::time::Instant;
+
 #[derive(Debug, Clone)]
 pub struct BackpackContext {
     pub capacity: i32,
@@ -22,17 +24,20 @@ pub trait Solver {
     fn name() -> &'static str;
     fn solve(&mut self) -> i32;
 }
-pub struct SolverContext<T: Solver>(T, BackpackContext);
+pub struct SolverContext<T: Solver>(T);
 impl<T: Solver> SolverContext<T> {
     pub fn make(t: BackpackContext) -> SolverContext<T> {
-        Self(T::make(t.clone()), t)
+        Self(T::make(t.clone()))
     }
     pub fn print(&mut self) {
+        let start = Instant::now();
+        let ans = self.0.solve();
+        let duration = start.elapsed();
         println!(
-            "Solve {:?} \n By {} \n Result is {}",
-            self.1,
+            "Solve By {} | Result is {} | Spend {}s",
             T::name(),
-            self.0.solve()
+            ans,
+            duration.as_secs_f32()
         );
     }
 }

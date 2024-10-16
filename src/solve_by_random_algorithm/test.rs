@@ -1,21 +1,25 @@
 use crate::types::{BackpackContext, Solver};
-use std::ops::Sub;
-use rand::{random, thread_rng, Rng};
 use rand::rngs::ThreadRng;
-
-const START_TMP: f64 = 300.0;
-const END_TMP: f64 = 2.0;
-const TMP_DOWN: f64 = 0.85;
+use rand::{thread_rng, Rng};
+//初始温度
+const START_TMP: f64 = 114514.0;
+//结束温度
+const END_TMP: f64 = 1.0;
+//降温倍率
+const TMP_DOWN: f64 = 0.98;
+//比较精度
 const EXP: f64 = 1e-2;
+//平衡时间
+const BALANCE_TIME: i32 = 2250;
+//迭代解翻转位数
 const REV_BITS: i32 = 2;
-const BALANCE_TIME: i32 = 100;
 
-pub struct RandomSolver {
+pub struct SimulatedAnnealingStochasticAlgorithmRandomSolver {
     ctx: BackpackContext,
     tmp: f64,
     rand: ThreadRng,
 }
-impl RandomSolver {
+impl SimulatedAnnealingStochasticAlgorithmRandomSolver {
     fn af(&mut self) -> bool {
         self.tmp *= TMP_DOWN;
         !(self.tmp < END_TMP + EXP)
@@ -53,14 +57,15 @@ impl RandomSolver {
         let mut r = v;
         for _time in 0..REV_BITS {
             let idx = self.rand.gen_range(0..self.ctx.value.len() as i32);
-            r = (r & !(1 << idx)) | ((!r) & (1 << idx));
+            // r = (r & !(1 << idx)) | ((!r) & (1 << idx));
+            r ^= 1 << idx;
         }
         r
     }
 }
-impl Solver for RandomSolver {
+impl Solver for SimulatedAnnealingStochasticAlgorithmRandomSolver {
     fn make(ctx: BackpackContext) -> Self {
-        RandomSolver {
+        SimulatedAnnealingStochasticAlgorithmRandomSolver {
             ctx,
             tmp: START_TMP,
             rand: thread_rng(),
@@ -74,23 +79,26 @@ impl Solver for RandomSolver {
     fn solve(&mut self) -> i32 {
         let mut res = 0;
         let mut top_of = 0;
-        let mut select = random::<u128>() & self.zero();
+        let mut select = self.rand.random::<u128>() & self.zero();
         let mut range = 0;
         loop {
             select = self.rand_rev(select);
             if self.weigh_of(select) <= self.ctx.capacity {
                 let v = self.value_of(select);
-                if v >= top_of || random::<f64>() < ((v - top_of) as f64 / self.tmp).exp() {
+                if v >= top_of || self.rand.random::<f64>() < ((v - top_of) as f64 / self.tmp).exp()
+                {
                     top_of = v;
                 }
-                res = res.max(top_of);
             }
+            res = res.max(top_of);
             if range + 1 == BALANCE_TIME {
                 range = 0;
                 if !self.af() {
                     break;
                 }
-            } else { range += 1; }
+            } else {
+                range += 1;
+            }
         }
         res
     }
