@@ -5,7 +5,6 @@ pub struct BackTrackingSolver {
     ctx: BackpackContext,
 }
 impl BackTrackingSolver {
-    //params vis 每个物品是否被选中 采用二进制状态压缩
     fn dfs(&self, deep: usize, vis: u128, weights: i32, values: i32) -> i32 {
         if weights > self.ctx.capacity {
             return -1;
