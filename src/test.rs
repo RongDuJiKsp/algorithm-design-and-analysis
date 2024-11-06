@@ -32,9 +32,9 @@ pub fn run() {
     println!("------Data-------");
     println!("{:?}", &ctx);
     println!("------Baseline-------");
-    SolverContext::<DynamicProgrammingSolver>::make(ctx.clone()).print();
+    SolverContext::<DynamicProgrammingSolver>::make(&ctx).print();
     println!("--------tests---------");
-    SolverContext::<BackTrackingSolver>::make(ctx.clone()).print();
-    SolverContext::<BranchAndBoundSolver>::make(ctx.clone()).print();
-    SolverContext::<SimulatedAnnealingStochasticAlgorithmRandomSolver>::make(ctx.clone()).print();
+    SolverContext::<BackTrackingSolver>::make(&ctx).print();
+    SolverContext::<BranchAndBoundSolver>::make(&ctx).print();
+    SolverContext::<SimulatedAnnealingStochasticAlgorithmRandomSolver>::make(&ctx).print();
 }

@@ -26,7 +26,7 @@ pub trait Solver {
 }
 pub struct SolverContext<T: Solver>(T);
 impl<T: Solver> SolverContext<T> {
-    pub fn make(t: BackpackContext) -> SolverContext<T> {
+    pub fn make(t: &BackpackContext) -> SolverContext<T> {
         Self(T::make(t.clone()))
     }
     pub fn print(&mut self) {
