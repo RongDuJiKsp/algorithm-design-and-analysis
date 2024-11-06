@@ -26,7 +26,6 @@ impl BackTrackingSolver {
 }
 impl Solver for BackTrackingSolver {
     fn make(ctx: BackpackContext) -> Self {
-        //时间复杂太大。直接放弃
         if ctx.weighs.len() > 128 {
             panic!("Hard To Resolve!");
         }

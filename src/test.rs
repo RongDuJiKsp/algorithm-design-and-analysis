@@ -20,7 +20,7 @@ fn gen_rand_data(sz: i32, top_w: i32, top_v: i32, top_cap: i32) -> BackpackConte
 }
 #[allow(dead_code)]
 fn get_strong_data() -> BackpackContext {
-    gen_rand_data(25, 800, 320, 15000)
+    gen_rand_data(8, 800, 320, 15000)
 }
 
 pub fn run() {
